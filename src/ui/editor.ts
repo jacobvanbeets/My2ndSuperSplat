@@ -5,6 +5,7 @@ import { CameraPosesPanel } from './camera-poses-panel';
 import { CameraInfoPanel } from './camera-info-panel';
 import { DataPanel } from './data-panel';
 import { MeasurementPanel } from './measurement-panel';
+import { AreaMeasurementPanel } from './area-measurement-panel';
 import { Events } from '../events';
 import { BottomToolbar } from './bottom-toolbar';
 import { ColorPanel } from './color-panel';
@@ -159,10 +160,12 @@ class EditorUI {
         const cameraPosesPanel = new CameraPosesPanel(events);
         const cameraInfoPanel = new CameraInfoPanel(events);
         const measurementPanel = new MeasurementPanel(events);
+        const areaMeasurementPanel = new AreaMeasurementPanel(events);
         
         // Add overlays to canvas container
         canvasContainer.append(cameraInfoPanel);
         canvasContainer.append(measurementPanel);
+        canvasContainer.append(areaMeasurementPanel);
 
         mainContainer.append(canvasContainer);
         mainContainer.append(timelinePanel);

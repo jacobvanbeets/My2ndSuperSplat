@@ -5,7 +5,9 @@ import { registerDocEvents } from './doc';
 import { EditHistory } from './edit-history';
 import { registerEditorEvents } from './editor';
 import { MeasurementTool } from './measurement-tool';
+import { AreaMeasurementTool } from './area-measurement-tool';
 import { MeasurementVisual } from './measurement-visual';
+import { AreaMeasurementVisual } from './area-measurement-visual';
 import { Events } from './events';
 import { initFileHandler } from './file-handler';
 import { registerPlySequenceEvents } from './ply-sequence';
@@ -100,6 +102,10 @@ const initShortcuts = (events: Events) => {
     shortcuts.register([' '], { event: 'camera.toggleOverlay' });
     shortcuts.register(['I', 'i'], { event: 'camera.info.toggle' });
     shortcuts.register(['Z', 'z'], { event: 'measurement.toggle' });
+    // Area measurement tool toggle with plain 'A' key
+    shortcuts.register(['A', 'a'], { event: 'area.measure.toggle' });
+    // Close polygon shortcut if panel is not visible
+    shortcuts.register(['Enter'], { event: 'area.measure.closePolygon' });
 
     return shortcuts;
 };
@@ -253,6 +259,9 @@ const main = async () => {
     // Initialize measurement systems
     const measurementTool = new MeasurementTool(events, scene);
     const measurementVisual = new MeasurementVisual(events, scene, editorUI.canvas);
+
+    const areaMeasurementTool = new AreaMeasurementTool(events, scene);
+    const areaMeasurementVisual = new AreaMeasurementVisual(events, scene, editorUI.canvas);
     registerTransformHandlerEvents(events);
     registerPlySequenceEvents(events);
     registerPublishEvents(events);
