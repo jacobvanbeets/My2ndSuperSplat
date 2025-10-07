@@ -1,4 +1,5 @@
 import { Vec3 } from 'playcanvas';
+
 import { Events } from './events';
 import { Scene } from './scene';
 
