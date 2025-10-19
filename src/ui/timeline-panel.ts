@@ -86,14 +86,14 @@ class Ticks extends Container {
 
                 const label = document.createElement('div');
                 label.classList.add('time-label', 'key');
-                
+
                 // Add type-specific classes for styling
                 if (keyTypes) {
                     if (keyTypes.has('depth')) label.classList.add('depth-key');
                     if (keyTypes.has('size')) label.classList.add('size-key');
                     if (keyTypes.has('camera')) label.classList.add('camera-key');
                 }
-                
+
                 label.style.left = `${offset}px`;
                 let dragging = false;
                 let toFrame = -1;
@@ -559,3 +559,4 @@ class TimelinePanel extends Container {
 }
 
 export { TimelinePanel };
+
