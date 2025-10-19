@@ -1,0 +1,52 @@
+SuperSplat Camera Export - Blender Addon
+========================================
+
+WARNING - THIS IS A WORK IN PROGRESS - USE AT YOUR OWN RISK !
+
+
+QUICK USAGE GUIDE
+===================
+
+1. DOWNLOAD:
+   - Use the file: supersplat_camera_export.zip
+
+2. INSTALL IN BLENDER:
+   - Open Blender
+   - Go to: Edit > Preferences > Add-ons
+   - Click "Install..." button
+   - Select: supersplat_camera_export.zip
+   - Check the checkbox to enable the addon
+
+3. FIND THE PANEL:
+   - In 3D Viewport, press 'N' to show sidebar
+   - Click the "SuperSplat" tab
+   - Use the "SuperSplat Camera Export" panel
+
+4. USAGE:
+   - Create Camera
+   - Create path
+   - Create Target
+	Setup:
+	-	select Camera
+	-	select Path
+	-	select Target
+	Animation:
+	- animate along path
+	- follow curve direction
+	- attach to curve
+	- attach to startpoint
+	> Create Animation
+	= Bake Action ( sorry no shortcut for this - you'll need to select from menu)
+	Export Camera Animation Poses:
+	   - Select a camera from the dropdown
+	   - Set output path (auto-filename enabled by default)
+	   - Click "Export to SuperSplat"
+
+5. IMPORT TO SUPERSPLAT:
+   - Open MySuperSplat in browser (Standard Supersplat can not read the json files)
+   - File > JSON Camera...
+   - Select your exported JSON file
+   
+   WARNING - There area still some issues with the z-up y-up etc so I have put in some 'rotation' 'flip' buttons that may be needed to get the orientation correct !
+
+
