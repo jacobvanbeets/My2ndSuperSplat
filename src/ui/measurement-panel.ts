@@ -40,7 +40,7 @@ class MeasurementPanel extends Panel {
         console.log('🚫 Adding selective mouse event prevention for panel');
 
         const preventCameraControls = (e: Event) => {
-            const = e.as HTMLElement;
+            const target = e.target as HTMLElement;
 
             // Allow events ONLY on interactive elements (buttons, inputs)
             if (target.closest('.pcui-button') ||
@@ -266,7 +266,7 @@ class MeasurementPanel extends Panel {
         });
 
         const scaleLabelText = new Label({
-            text: 'Target length:',
+            text: 'Target length',
             class: 'measurement-label'
         });
 
@@ -465,12 +465,12 @@ class MeasurementPanel extends Panel {
         console.log(`📐 Scale factor calculation: ${targetDistance} ÷ ${currentDistance.toFixed(3)} = ${scaleFactor.toFixed(6)}`);
 
         // Add bounds checking for reasonable scale factors
-        if (scaleFactor < 0.001) {
-            console.log('⚠️ Scale factor too small (< 0.001), scaling canceled');
+        if (scaleFactor < 0.0005) {
+            console.log('⚠️ Scale factor too small (< 0.0005), scaling canceled');
             return;
         }
-        if (scaleFactor > 1000) {
-            console.log('⚠️ Scale factor too large (> 1000), scaling canceled');
+        if (scaleFactor > 1200) {
+            console.log('⚠️ Scale factor too large (> 1200), scaling canceled');
             return;
         }
 
