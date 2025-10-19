@@ -559,4 +559,3 @@ class TimelinePanel extends Container {
 }
 
 export { TimelinePanel };
-
