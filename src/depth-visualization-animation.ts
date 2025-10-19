@@ -111,7 +111,7 @@ const registerDepthVisualizationAnimationEvents = (events: Events) => {
             console.log(`Adding new depth keyframe at frame ${keyframe.frame}`);
             keyframes.push(keyframe);
             console.log('Firing timeline.addKey event for frame:', keyframe.frame);
-            events.fire('timeline.addKey', keyframe.frame);
+            events.fire('timeline.addKey', keyframe.frame, 'depth');
         }
 
         console.log(`Total depth keyframes: ${keyframes.length}`);

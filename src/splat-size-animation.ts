@@ -80,7 +80,7 @@ const registerSplatSizeAnimationEvents = (events: Events) => {
             keyframes[idx] = keyframe;
         } else {
             keyframes.push(keyframe);
-            events.fire('timeline.addKey', keyframe.frame);
+            events.fire('timeline.addKey', keyframe.frame, 'size');
         }
 
         rebuildSpline();

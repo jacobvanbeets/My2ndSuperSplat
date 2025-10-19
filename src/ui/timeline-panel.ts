@@ -80,12 +80,20 @@ class Ticks extends Container {
             // keys
 
             const keys: HTMLElement[] = [];
-            const createKey = (value: number) => {
+            const createKey = (value: number, keyTypes?: Set<string>) => {
                 const offset = offsetFromFrame(value);
                 if (offset < 0) return; // key is outside visible range
 
                 const label = document.createElement('div');
                 label.classList.add('time-label', 'key');
+                
+                // Add type-specific classes for styling
+                if (keyTypes) {
+                    if (keyTypes.has('depth')) label.classList.add('depth-key');
+                    if (keyTypes.has('size')) label.classList.add('size-key');
+                    if (keyTypes.has('camera')) label.classList.add('camera-key');
+                }
+                
                 label.style.left = `${offset}px`;
                 let dragging = false;
                 let toFrame = -1;
@@ -125,10 +133,19 @@ class Ticks extends Container {
                 keys.push(label);
             };
 
-            (events.invoke('timeline.keys') as number[]).forEach(createKey);
+            // Use keysWithTypes if available, fallback to regular keys
+            const keysWithTypes = events.invoke('timeline.keysWithTypes') as Array<{frame: number, types: Set<string>}>;
+            if (keysWithTypes && keysWithTypes.length > 0) {
+                keysWithTypes.forEach(key => createKey(key.frame, key.types));
+            } else {
+                (events.invoke('timeline.keys') as number[]).forEach(frame => createKey(frame));
+            }
 
-            addKey = (value: number) => {
-                createKey(value);
+            addKey = (value: number, keyType?: string) => {
+                // Find the key with types if it exists
+                const keysWithTypes = events.invoke('timeline.keysWithTypes') as Array<{frame: number, types: Set<string>}>;
+                const keyWithTypes = keysWithTypes?.find(k => k.frame === value);
+                createKey(value, keyWithTypes?.types);
             };
 
             removeKey = (index: number) => {

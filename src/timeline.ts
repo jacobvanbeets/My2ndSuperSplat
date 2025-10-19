@@ -118,27 +118,55 @@ const registerTimelineEvents = (events: Events) => {
         setPlaying(value);
     });
 
-    // keys
+    // keys with types
 
-    const keys: number[] = [];
+    interface TimelineKey {
+        frame: number;
+        types: Set<string>; // can have multiple types (camera, depth, size)
+    }
+
+    const keys: TimelineKey[] = [];
 
     events.function('timeline.keys', () => {
+        return keys.map(k => k.frame); // maintain backward compatibility
+    });
+
+    events.function('timeline.keysWithTypes', () => {
         return keys;
     });
 
-    events.on('timeline.addKey', (frame: number) => {
-        keys.push(frame);
-        events.fire('timeline.keyAdded', frame);
+    events.on('timeline.addKey', (frame: number, keyType: string = 'camera') => {
+        let existingKey = keys.find(k => k.frame === frame);
+        if (!existingKey) {
+            existingKey = { frame, types: new Set() };
+            keys.push(existingKey);
+            keys.sort((a, b) => a.frame - b.frame); // keep sorted
+        }
+        existingKey.types.add(keyType);
+        events.fire('timeline.keyAdded', frame, keyType);
     });
 
-    events.on('timeline.removeKey', (index: number) => {
-        keys.splice(index, 1);
-        events.fire('timeline.keyRemoved', index);
+    events.on('timeline.removeKey', (index: number, keyType?: string) => {
+        if (index >= 0 && index < keys.length) {
+            if (keyType) {
+                // Remove specific type from key
+                keys[index].types.delete(keyType);
+                if (keys[index].types.size === 0) {
+                    // If no types left, remove the entire key
+                    keys.splice(index, 1);
+                }
+            } else {
+                // Remove entire key
+                keys.splice(index, 1);
+            }
+            events.fire('timeline.keyRemoved', index, keyType);
+        }
     });
 
     events.on('timeline.setKey', (index: number, frame: number) => {
-        if (frame !== keys[index]) {
-            keys[index] = frame;
+        if (index >= 0 && index < keys.length && frame !== keys[index].frame) {
+            keys[index].frame = frame;
+            keys.sort((a, b) => a.frame - b.frame); // keep sorted
             events.fire('timeline.keySet', index, frame);
         }
     });

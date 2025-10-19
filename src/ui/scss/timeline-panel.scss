@@ -140,6 +140,36 @@
                     // border-radius: 50%;
                     cursor: pointer;
                     pointer-events: auto;
+                    
+                    // Different colors for different keyframe types
+                    &.depth-key {
+                        background-color: #ff4444; // Red for depth keyframes
+                    }
+                    
+                    &.size-key {
+                        background-color: #4444ff; // Blue for size keyframes
+                    }
+                    
+                    &.camera-key {
+                        background-color: $clr-icon-hilight; // Default yellow/orange for camera
+                    }
+                    
+                    // Mixed keyframes (multiple types on same frame)
+                    &.depth-key.size-key {
+                        background: linear-gradient(45deg, #ff4444 50%, #4444ff 50%);
+                    }
+                    
+                    &.depth-key.camera-key {
+                        background: linear-gradient(45deg, #ff4444 50%, #{$clr-icon-hilight} 50%);
+                    }
+                    
+                    &.size-key.camera-key {
+                        background: linear-gradient(45deg, #4444ff 50%, #{$clr-icon-hilight} 50%);
+                    }
+                    
+                    &.depth-key.size-key.camera-key {
+                        background: linear-gradient(120deg, #ff4444 33%, #4444ff 33%, #4444ff 66%, #{$clr-icon-hilight} 66%);
+                    }
                 }
 
                 &.dragging {

@@ -305,7 +305,7 @@ const registerCameraPosesEvents = (events: Events) => {
             poses[idx] = pose;
         } else {
             poses.push(pose);
-            events.fire('timeline.addKey', pose.frame);
+            events.fire('timeline.addKey', pose.frame, 'camera');
         }
 
         rebuildSpline();
