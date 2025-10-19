@@ -40,7 +40,7 @@ class MeasurementPanel extends Panel {
         console.log('🚫 Adding selective mouse event prevention for panel');
 
         const preventCameraControls = (e: Event) => {
-            const target = e.target as HTMLElement;
+            const = e.as HTMLElement;
 
             // Allow events ONLY on interactive elements (buttons, inputs)
             if (target.closest('.pcui-button') ||
@@ -266,12 +266,12 @@ class MeasurementPanel extends Panel {
         });
 
         const scaleLabelText = new Label({
-            text: 'Target Scale:',
+            text: 'Target length:',
             class: 'measurement-label'
         });
 
         this.scaleInput = new NumericInput({
-            placeholder: 'Enter target distance',
+            placeholder: 'Enter target length',
             precision: 3,
             class: 'measurement-scale-input'
         });
